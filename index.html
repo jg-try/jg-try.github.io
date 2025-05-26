@@ -2,22 +2,63 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title></title>
+  <title>Pour ma copine</title>
   <style>
     body, html {
       height: 100%;
       margin: 0;
-      font-family: Arial, sans-serif;
+      background-color: #fff0f6;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #fff0f6;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
       color: #e91e63;
+    }
+    #text {
       font-size: 3em;
+      margin-bottom: 40px;
+      z-index: 10;
+    }
+    #face {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      user-select: none;
     }
   </style>
 </head>
 <body>
-  je t'aime
+  <div id="text">je t'aime</div>
+  <img src="face.png" id="face" alt="sa tête" />
+
+  <script>
+    const face = document.getElementById('face');
+    let x = 100, y = 100;
+    let vx = 3, vy = 3;
+    let angle = 0;
+    let angleSpeed = 5;
+
+    function animate() {
+      const w = window.innerWidth - face.width;
+      const h = window.innerHeight - face.height;
+
+      x += vx;
+      y += vy;
+      angle = (angle + angleSpeed) % 360;
+
+      if (x <= 0 || x >= w) vx = -vx;
+      if (y <= 0 || y >= h) vy = -vy;
+
+      face.style.left = x + 'px';
+      face.style.top = y + 'px';
+      face.style.transform = `rotate(${angle}deg)`;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
 </body>
 </html>
